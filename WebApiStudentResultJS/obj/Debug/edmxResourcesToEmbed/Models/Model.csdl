@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchoolManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="CourseId" />
+    </Key>
+    <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CourseTeacherMapings" Relationship="Self.FK_CourseTeacherMaping_Course" FromRole="Course" ToRole="CourseTeacherMaping" />
+  </EntityType>
+  <EntityType Name="CourseTeacherMaping">
+    <Key>
+      <PropertyRef Name="CourseTeacherMapingId" />
+    </Key>
+    <Property Name="CourseTeacherMapingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseId" Type="Int32" Nullable="false" />
+    <Property Name="TeacherId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Course" Relationship="Self.FK_CourseTeacherMaping_Course" FromRole="CourseTeacherMaping" ToRole="Course" />
+    <NavigationProperty Name="Teacher" Relationship="Self.FK_CourseTeacherMaping_Teacher" FromRole="CourseTeacherMaping" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="ExamType">
+    <Key>
+      <PropertyRef Name="ExamTypeId" />
+    </Key>
+    <Property Name="ExamTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ExamName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Results" Relationship="Self.FK_Result_ExamType" FromRole="ExamType" ToRole="Result" />
+  </EntityType>
+  <EntityType Name="Result">
+    <Key>
+      <PropertyRef Name="ResultId" />
+    </Key>
+    <Property Name="ResultId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" />
+    <Property Name="ExamTypeId" Type="Int32" Nullable="false" />
+    <Property Name="CGPA" Type="Decimal" Precision="1" Scale="1" Nullable="false" />
+    <NavigationProperty Name="ExamType" Relationship="Self.FK_Result_ExamType" FromRole="Result" ToRole="ExamType" />
+    <NavigationProperty Name="Student" Relationship="Self.FK_Result_Student" FromRole="Result" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentId" />
+    </Key>
+    <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StudentMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="StudentAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Results" Relationship="Self.FK_Result_Student" FromRole="Student" ToRole="Result" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="TeacherId" />
+    </Key>
+    <Property Name="TeacherId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TeacherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TeacherMobile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TeacherEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TeacherAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CourseTeacherMapings" Relationship="Self.FK_CourseTeacherMaping_Teacher" FromRole="Teacher" ToRole="CourseTeacherMaping" />
+  </EntityType>
+  <EntityType Name="ReportResult">
+    <Key>
+      <PropertyRef Name="ReportResultId" />
+      <PropertyRef Name="StudentId" />
+      <PropertyRef Name="CourseId" />
+      <PropertyRef Name="ExamTypeId" />
+      <PropertyRef Name="Marks" />
+    </Key>
+    <Property Name="ReportResultId" Type="Int32" Nullable="false" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" />
+    <Property Name="CourseId" Type="Int32" Nullable="false" />
+    <Property Name="ExamTypeId" Type="Int32" Nullable="false" />
+    <Property Name="Marks" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CourseTeacherMaping_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="CourseTeacherMaping" Type="Self.CourseTeacherMaping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="CourseTeacherMaping">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseTeacherMaping_Teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+    <End Role="CourseTeacherMaping" Type="Self.CourseTeacherMaping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="TeacherId" />
+      </Principal>
+      <Dependent Role="CourseTeacherMaping">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Result_ExamType">
+    <End Role="ExamType" Type="Self.ExamType" Multiplicity="1" />
+    <End Role="Result" Type="Self.Result" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExamType">
+        <PropertyRef Name="ExamTypeId" />
+      </Principal>
+      <Dependent Role="Result">
+        <PropertyRef Name="ExamTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Result_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Result" Type="Self.Result" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="Result">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SchoolManagementEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Courses" EntityType="Self.Course" />
+    <EntitySet Name="CourseTeacherMapings" EntityType="Self.CourseTeacherMaping" />
+    <EntitySet Name="ExamTypes" EntityType="Self.ExamType" />
+    <EntitySet Name="Results" EntityType="Self.Result" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+    <EntitySet Name="ReportResults" EntityType="Self.ReportResult" />
+    <AssociationSet Name="FK_CourseTeacherMaping_Course" Association="Self.FK_CourseTeacherMaping_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="CourseTeacherMaping" EntitySet="CourseTeacherMapings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseTeacherMaping_Teacher" Association="Self.FK_CourseTeacherMaping_Teacher">
+      <End Role="Teacher" EntitySet="Teachers" />
+      <End Role="CourseTeacherMaping" EntitySet="CourseTeacherMapings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Result_ExamType" Association="Self.FK_Result_ExamType">
+      <End Role="ExamType" EntitySet="ExamTypes" />
+      <End Role="Result" EntitySet="Results" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Result_Student" Association="Self.FK_Result_Student">
+      <End Role="Student" EntitySet="Students" />
+      <End Role="Result" EntitySet="Results" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

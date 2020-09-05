@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchoolManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="CourseId" />
+    </Key>
+    <Property Name="CourseId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CourseTeacherMaping">
+    <Key>
+      <PropertyRef Name="CourseTeacherMapingId" />
+    </Key>
+    <Property Name="CourseTeacherMapingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseId" Type="int" Nullable="false" />
+    <Property Name="TeacherId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ExamType">
+    <Key>
+      <PropertyRef Name="ExamTypeId" />
+    </Key>
+    <Property Name="ExamTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExamName" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'SchoolManagement.dbo.ReportResult' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ReportResult">
+    <Key>
+      <PropertyRef Name="ReportResultId" />
+      <PropertyRef Name="StudentId" />
+      <PropertyRef Name="CourseId" />
+      <PropertyRef Name="ExamTypeId" />
+      <PropertyRef Name="Marks" />
+    </Key>
+    <Property Name="ReportResultId" Type="int" Nullable="false" />
+    <Property Name="StudentId" Type="int" Nullable="false" />
+    <Property Name="CourseId" Type="int" Nullable="false" />
+    <Property Name="ExamTypeId" Type="int" Nullable="false" />
+    <Property Name="Marks" Type="decimal" Precision="4" Scale="2" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Result">
+    <Key>
+      <PropertyRef Name="ResultId" />
+    </Key>
+    <Property Name="ResultId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentId" Type="int" Nullable="false" />
+    <Property Name="ExamTypeId" Type="int" Nullable="false" />
+    <Property Name="CGPA" Type="decimal" Precision="1" Scale="1" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentId" />
+    </Key>
+    <Property Name="StudentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="StudentMobile" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="StudentAddress" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="TeacherId" />
+    </Key>
+    <Property Name="TeacherId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TeacherName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TeacherMobile" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TeacherEmail" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TeacherAddress" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_CourseTeacherMaping_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="CourseTeacherMaping" Type="Self.CourseTeacherMaping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="CourseTeacherMaping">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseTeacherMaping_Teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+    <End Role="CourseTeacherMaping" Type="Self.CourseTeacherMaping" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="TeacherId" />
+      </Principal>
+      <Dependent Role="CourseTeacherMaping">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Result_ExamType">
+    <End Role="ExamType" Type="Self.ExamType" Multiplicity="1" />
+    <End Role="Result" Type="Self.Result" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ExamType">
+        <PropertyRef Name="ExamTypeId" />
+      </Principal>
+      <Dependent Role="Result">
+        <PropertyRef Name="ExamTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Result_Student">
+    <End Role="Student" Type="Self.Student" Multiplicity="1" />
+    <End Role="Result" Type="Self.Result" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Student">
+        <PropertyRef Name="StudentId" />
+      </Principal>
+      <Dependent Role="Result">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SchoolManagementModelStoreContainer">
+    <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CourseTeacherMaping" EntityType="Self.CourseTeacherMaping" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExamType" EntityType="Self.ExamType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Result" EntityType="Self.Result" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReportResult" EntityType="Self.ReportResult" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ReportResult].[ReportResultId] AS [ReportResultId], 
+    [ReportResult].[StudentId] AS [StudentId], 
+    [ReportResult].[CourseId] AS [CourseId], 
+    [ReportResult].[ExamTypeId] AS [ExamTypeId], 
+    [ReportResult].[Marks] AS [Marks]
+    FROM [dbo].[ReportResult] AS [ReportResult]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_CourseTeacherMaping_Course" Association="Self.FK_CourseTeacherMaping_Course">
+      <End Role="Course" EntitySet="Course" />
+      <End Role="CourseTeacherMaping" EntitySet="CourseTeacherMaping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseTeacherMaping_Teacher" Association="Self.FK_CourseTeacherMaping_Teacher">
+      <End Role="Teacher" EntitySet="Teacher" />
+      <End Role="CourseTeacherMaping" EntitySet="CourseTeacherMaping" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Result_ExamType" Association="Self.FK_Result_ExamType">
+      <End Role="ExamType" EntitySet="ExamType" />
+      <End Role="Result" EntitySet="Result" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Result_Student" Association="Self.FK_Result_Student">
+      <End Role="Student" EntitySet="Student" />
+      <End Role="Result" EntitySet="Result" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
