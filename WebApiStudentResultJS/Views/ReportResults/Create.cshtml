@@ -55,14 +55,14 @@
             </div>*@
 
         <label class="control-label"><h2>Add New Course Marks</h2></label>
-        <table class="table table-striped">
+        <table class="table table-striped" >
             <thead>
                 <tr>
                     <td>
                         <div class="form-group">
                             @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                <select class="form-control" id="courseId">
+                                <select class="form-control" id="course">
                                     <option selected value="">-Select Course-</option>
                                 </select>
                             </div>
@@ -73,15 +73,16 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Marks, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Marks, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Marks, "", new { @class = "text-danger" })
+                               @* @Html.EditorFor(model => model.Marks, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Marks, "", new { @class = "text-danger" })*@
+                                <input class="form-control" type="number" placeholder=" Enter Marks" id="marks"/>
                             </div>
                         </div>
                     </td>
                     <td>
                         <div class="form-group">
                             <div class="col-md-10">
-                                <button class="form-control btn btn-default" onclick="AddRow()">Add</button>
+                                <input type="button" class="form-control btn btn-default add-record" onclick="AddRow()" value="Add Row"/>
                             </div>
                         </div>
                     </td>
@@ -91,9 +92,22 @@
             </tbody>
         </table>
         <label class="control-label"><h2>Course Wise Marks Grid</h2></label>
-        <table class="table table-striped">
+        <table style="display:none" id="sample_table">
+            <tr>
+                <td><span class="sn"></span>.</td>
+                <td class="course">Course ID</td>
+                <td class="marks">100</td>
+                <td class="grade">A</td>
+                <td><a class="btn btn-xs delete-record" data-id="0"><i class="glyphicon glyphicon-trash"></i></a></td>
+                <td><a class="btn btn-xs edit-record" data-id="0"><i class="glyphicon glyphicon-edit"></i></a></td>
+            </tr>
+        </table>
+        
+        
+        <table class="table table-striped" id="resultTable">
             <thead>
                 <tr>
+                    <th> SL No.</th>
                     <th>
                         @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
                     </th>
@@ -103,12 +117,26 @@
                     <th>
                         Grade
                     </th>
+                    <th>
+
+                    </th>
+                    <th>
+
+                    </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="resultTable_body">
                 <tr>
                 </tr>
             </tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Total : <span class="info" id="total"></span> </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </table>
 
         @*<div class="form-group">

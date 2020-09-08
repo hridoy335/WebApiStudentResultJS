@@ -166,6 +166,7 @@
     <Compile Include="Controllers\ExamTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReportResultsController.cs" />
+    <Compile Include="Controllers\Students1Controller.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -286,6 +287,11 @@
     <Content Include="Views\ReportResults\Details.cshtml" />
     <Content Include="Views\ReportResults\Edit.cshtml" />
     <Content Include="Views\ReportResults\Index.cshtml" />
+    <Content Include="Views\Students1\Create.cshtml" />
+    <Content Include="Views\Students1\Delete.cshtml" />
+    <Content Include="Views\Students1\Details.cshtml" />
+    <Content Include="Views\Students1\Edit.cshtml" />
+    <Content Include="Views\Students1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -6,6 +6,7 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using WebApiStudentResultJS.Models;
@@ -24,9 +25,9 @@ namespace WebApiStudentResultJS.Controllers
 
         // GET: api/Courses/5
         [ResponseType(typeof(Course))]
-        public IHttpActionResult GetCourse(int id)
+        public async Task<IHttpActionResult> GetCourse(int id)
         {
-            Course course = db.Courses.Find(id);
+            Course course = await db.Courses.FindAsync(id);
             if (course == null)
             {
                 return NotFound();
@@ -37,7 +38,7 @@ namespace WebApiStudentResultJS.Controllers
 
         // PUT: api/Courses/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutCourse(int id, Course course)
+        public async Task<IHttpActionResult> PutCourse(int id, Course course)
         {
             if (!ModelState.IsValid)
             {
@@ -53,7 +54,7 @@ namespace WebApiStudentResultJS.Controllers
 
             try
             {
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -72,7 +73,7 @@ namespace WebApiStudentResultJS.Controllers
 
         // POST: api/Courses
         [ResponseType(typeof(Course))]
-        public IHttpActionResult PostCourse(Course course)
+        public async Task<IHttpActionResult> PostCourse(Course course)
         {
             if (!ModelState.IsValid)
             {
@@ -80,23 +81,23 @@ namespace WebApiStudentResultJS.Controllers
             }
 
             db.Courses.Add(course);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return CreatedAtRoute("DefaultApi", new { id = course.CourseId }, course);
         }
 
         // DELETE: api/Courses/5
         [ResponseType(typeof(Course))]
-        public IHttpActionResult DeleteCourse(int id)
+        public async Task<IHttpActionResult> DeleteCourse(int id)
         {
-            Course course = db.Courses.Find(id);
+            Course course = await db.Courses.FindAsync(id);
             if (course == null)
             {
                 return NotFound();
             }
 
             db.Courses.Remove(course);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
 
             return Ok(course);
         }
