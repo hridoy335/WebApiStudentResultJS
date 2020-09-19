@@ -71,11 +71,11 @@
     <EntitySetMapping Name="ReportResults">
       <EntityTypeMapping TypeName="SchoolManagementModel.ReportResult">
         <MappingFragment StoreEntitySet="ReportResult">
-          <ScalarProperty Name="ReportResultId" ColumnName="ReportResultId" />
-          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
-          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-          <ScalarProperty Name="ExamTypeId" ColumnName="ExamTypeId" />
           <ScalarProperty Name="Marks" ColumnName="Marks" />
+          <ScalarProperty Name="ExamTypeId" ColumnName="ExamTypeId" />
+          <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="ReportResultId" ColumnName="ReportResultId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

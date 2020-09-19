@@ -68,20 +68,6 @@
     <Property Name="TeacherAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <NavigationProperty Name="CourseTeacherMapings" Relationship="Self.FK_CourseTeacherMaping_Teacher" FromRole="Teacher" ToRole="CourseTeacherMaping" />
   </EntityType>
-  <EntityType Name="ReportResult">
-    <Key>
-      <PropertyRef Name="ReportResultId" />
-      <PropertyRef Name="StudentId" />
-      <PropertyRef Name="CourseId" />
-      <PropertyRef Name="ExamTypeId" />
-      <PropertyRef Name="Marks" />
-    </Key>
-    <Property Name="ReportResultId" Type="Int32" Nullable="false" />
-    <Property Name="StudentId" Type="Int32" Nullable="false" />
-    <Property Name="CourseId" Type="Int32" Nullable="false" />
-    <Property Name="ExamTypeId" Type="Int32" Nullable="false" />
-    <Property Name="Marks" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
-  </EntityType>
   <Association Name="FK_CourseTeacherMaping_Course">
     <End Role="Course" Type="Self.Course" Multiplicity="1" />
     <End Role="CourseTeacherMaping" Type="Self.CourseTeacherMaping" Multiplicity="*" />
@@ -138,7 +124,6 @@
     <EntitySet Name="Students" EntityType="Self.Student" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="Teachers" EntityType="Self.Teacher" />
-    <EntitySet Name="ReportResults" EntityType="Self.ReportResult" />
     <AssociationSet Name="FK_CourseTeacherMaping_Course" Association="Self.FK_CourseTeacherMaping_Course">
       <End Role="Course" EntitySet="Courses" />
       <End Role="CourseTeacherMaping" EntitySet="CourseTeacherMapings" />
@@ -155,5 +140,16 @@
       <End Role="Student" EntitySet="Students" />
       <End Role="Result" EntitySet="Results" />
     </AssociationSet>
+    <EntitySet Name="ReportResults" EntityType="SchoolManagementModel.ReportResult" />
   </EntityContainer>
+  <EntityType Name="ReportResult">
+    <Key>
+      <PropertyRef Name="ReportResultId" />
+    </Key>
+    <Property Name="ReportResultId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentId" Type="Int32" Nullable="false" />
+    <Property Name="CourseId" Type="Int32" Nullable="false" />
+    <Property Name="ExamTypeId" Type="Int32" Nullable="false" />
+    <Property Name="Marks" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+  </EntityType>
 </Schema>

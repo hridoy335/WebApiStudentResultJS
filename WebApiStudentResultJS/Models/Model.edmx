@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="SchoolManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="SchoolManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="CourseId" />
@@ -27,17 +27,11 @@
           <Property Name="ExamTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ExamName" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'SchoolManagement.dbo.ReportResult' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ReportResult">
           <Key>
             <PropertyRef Name="ReportResultId" />
-            <PropertyRef Name="StudentId" />
-            <PropertyRef Name="CourseId" />
-            <PropertyRef Name="ExamTypeId" />
-            <PropertyRef Name="Marks" />
           </Key>
-          <Property Name="ReportResultId" Type="int" Nullable="false" />
+          <Property Name="ReportResultId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StudentId" Type="int" Nullable="false" />
           <Property Name="CourseId" Type="int" Nullable="false" />
           <Property Name="ExamTypeId" Type="int" Nullable="false" />
@@ -133,19 +127,11 @@ warning 6002: The table/view 'SchoolManagement.dbo.ReportResult' does not have a
           <EntitySet Name="Course" EntityType="Self.Course" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CourseTeacherMaping" EntityType="Self.CourseTeacherMaping" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ExamType" EntityType="Self.ExamType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportResult" EntityType="Self.ReportResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Result" EntityType="Self.Result" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Teacher" EntityType="Self.Teacher" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ReportResult" EntityType="Self.ReportResult" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [ReportResult].[ReportResultId] AS [ReportResultId], 
-    [ReportResult].[StudentId] AS [StudentId], 
-    [ReportResult].[CourseId] AS [CourseId], 
-    [ReportResult].[ExamTypeId] AS [ExamTypeId], 
-    [ReportResult].[Marks] AS [Marks]
-    FROM [dbo].[ReportResult] AS [ReportResult]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_CourseTeacherMaping_Course" Association="Self.FK_CourseTeacherMaping_Course">
             <End Role="Course" EntitySet="Course" />
             <End Role="CourseTeacherMaping" EntitySet="CourseTeacherMaping" />
@@ -163,8 +149,7 @@ warning 6002: The table/view 'SchoolManagement.dbo.ReportResult' does not have a
             <End Role="Result" EntitySet="Result" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="SchoolManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -236,20 +221,6 @@ warning 6002: The table/view 'SchoolManagement.dbo.ReportResult' does not have a
           <Property Name="TeacherAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CourseTeacherMapings" Relationship="Self.FK_CourseTeacherMaping_Teacher" FromRole="Teacher" ToRole="CourseTeacherMaping" />
         </EntityType>
-        <EntityType Name="ReportResult">
-          <Key>
-            <PropertyRef Name="ReportResultId" />
-            <PropertyRef Name="StudentId" />
-            <PropertyRef Name="CourseId" />
-            <PropertyRef Name="ExamTypeId" />
-            <PropertyRef Name="Marks" />
-          </Key>
-          <Property Name="ReportResultId" Type="Int32" Nullable="false" />
-          <Property Name="StudentId" Type="Int32" Nullable="false" />
-          <Property Name="CourseId" Type="Int32" Nullable="false" />
-          <Property Name="ExamTypeId" Type="Int32" Nullable="false" />
-          <Property Name="Marks" Type="Decimal" Precision="4" Scale="2" Nullable="false" />
-        </EntityType>
         <Association Name="FK_CourseTeacherMaping_Course">
           <End Role="Course" Type="Self.Course" Multiplicity="1" />
           <End Role="CourseTeacherMaping" Type="Self.CourseTeacherMaping" Multiplicity="*" />
@@ -306,7 +277,6 @@ warning 6002: The table/view 'SchoolManagement.dbo.ReportResult' does not have a
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Teachers" EntityType="Self.Teacher" />
-          <EntitySet Name="ReportResults" EntityType="Self.ReportResult" />
           <AssociationSet Name="FK_CourseTeacherMaping_Course" Association="Self.FK_CourseTeacherMaping_Course">
             <End Role="Course" EntitySet="Courses" />
             <End Role="CourseTeacherMaping" EntitySet="CourseTeacherMapings" />
@@ -323,7 +293,18 @@ warning 6002: The table/view 'SchoolManagement.dbo.ReportResult' does not have a
             <End Role="Student" EntitySet="Students" />
             <End Role="Result" EntitySet="Results" />
           </AssociationSet>
+          <EntitySet Name="ReportResults" EntityType="SchoolManagementModel.ReportResult" />
         </EntityContainer>
+        <EntityType Name="ReportResult">
+          <Key>
+            <PropertyRef Name="ReportResultId" />
+          </Key>
+          <Property Name="ReportResultId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <Property Name="CourseId" Type="Int32" Nullable="false" />
+          <Property Name="ExamTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Marks" Type="Decimal" Nullable="false" Precision="4" Scale="2" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -400,11 +381,11 @@ warning 6002: The table/view 'SchoolManagement.dbo.ReportResult' does not have a
           <EntitySetMapping Name="ReportResults">
             <EntityTypeMapping TypeName="SchoolManagementModel.ReportResult">
               <MappingFragment StoreEntitySet="ReportResult">
-                <ScalarProperty Name="ReportResultId" ColumnName="ReportResultId" />
-                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
-                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
-                <ScalarProperty Name="ExamTypeId" ColumnName="ExamTypeId" />
                 <ScalarProperty Name="Marks" ColumnName="Marks" />
+                <ScalarProperty Name="ExamTypeId" ColumnName="ExamTypeId" />
+                <ScalarProperty Name="CourseId" ColumnName="CourseId" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="ReportResultId" ColumnName="ReportResultId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

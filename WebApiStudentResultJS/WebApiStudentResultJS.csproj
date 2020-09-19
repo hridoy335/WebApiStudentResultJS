@@ -165,7 +165,10 @@
     <Compile Include="Controllers\CoursesController.cs" />
     <Compile Include="Controllers\ExamTypesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ReportResults1Controller.cs" />
     <Compile Include="Controllers\ReportResultsController.cs" />
+    <Compile Include="Controllers\Results1Controller.cs" />
+    <Compile Include="Controllers\ResultsController.cs" />
     <Compile Include="Controllers\Students1Controller.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\TeachersController.cs" />
@@ -292,6 +295,11 @@
     <Content Include="Views\Students1\Details.cshtml" />
     <Content Include="Views\Students1\Edit.cshtml" />
     <Content Include="Views\Students1\Index.cshtml" />
+    <Content Include="Views\Results1\Create.cshtml" />
+    <Content Include="Views\Results1\Delete.cshtml" />
+    <Content Include="Views\Results1\Details.cshtml" />
+    <Content Include="Views\Results1\Edit.cshtml" />
+    <Content Include="Views\Results1\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

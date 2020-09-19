@@ -96,6 +96,7 @@
             <tr>
                 <td><span class="sn"></span>.</td>
                 <td class="course">Course ID</td>
+                <td class="courseID" style="display:none">Course ID</td>
                 <td class="marks">100</td>
                 <td class="grade">A</td>
                 <td><a class="btn btn-xs delete-record" data-id="0"><i class="glyphicon glyphicon-trash"></i></a></td>
@@ -110,6 +111,9 @@
                     <th> SL No.</th>
                     <th>
                         @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </th>
+                    <th style="display:none">
+                       
                     </th>
                     <th>
                         @Html.LabelFor(model => model.Marks, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -132,8 +136,9 @@
             <tr>
                 <td></td>
                 <td></td>
+                <td style="display:none"></td>
                 <td>Total : <span class="info" id="total"></span> </td>
-                <td></td>
+                <td>SGPA : <span class="info" id="total2"></span></td>
                 <td></td>
                 <td></td>
             </tr>
@@ -151,7 +156,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="button" value="Create" id="btnSave" class="btn btn-default" onclick="saveData()"  />
+                @*<input class="btn-default" type="button" id="btnSave" value="Save" onclick="saveData()" />*@
             </div>
         </div>
     </div>

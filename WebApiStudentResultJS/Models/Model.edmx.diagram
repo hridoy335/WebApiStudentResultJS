@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="790ebc132b9f4ec0bf91084e4f3d1c44" Name="Diagram1">
+      <Diagram DiagramId="790ebc132b9f4ec0bf91084e4f3d1c44" Name="Diagram1" ZoomLevel="86">
         <EntityTypeShape EntityType="SchoolManagementModel.Course" Width="1.5" PointX="2.75" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolManagementModel.CourseTeacherMaping" Width="1.5" PointX="5" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolManagementModel.ExamType" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
@@ -12,11 +12,11 @@
         <EntityTypeShape EntityType="SchoolManagementModel.Student" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolManagementModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SchoolManagementModel.Teacher" Width="1.5" PointX="2.75" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="SchoolManagementModel.ReportResult" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="SchoolManagementModel.FK_CourseTeacherMaping_Course" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolManagementModel.FK_CourseTeacherMaping_Teacher" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolManagementModel.FK_Result_ExamType" ManuallyRouted="false" />
         <AssociationConnector Association="SchoolManagementModel.FK_Result_Student" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="SchoolManagementModel.ReportResult" Width="1.5" PointX="7.375" PointY="3.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
